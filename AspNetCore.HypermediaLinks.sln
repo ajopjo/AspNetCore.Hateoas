@@ -3,9 +3,43 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2048
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{F4186D25-3B94-4E3F-B723-EE8549C27014}"
+	ProjectSection(SolutionItems) = preProject
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{0A5C44F8-635D-4F58-8B98-5C43E5D65B6B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCore.HypermediaLinks", "src\AspNetCore.HypermediaLinks\AspNetCore.HypermediaLinks.csproj", "{9613372C-CE2C-40AB-9BCB-6DA4182B0EF3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{81150834-A195-4DBA-B9E3-8A2A1D67CC68}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCore.HypermediaLinks.Tests", "tests\AspNetCore.HypermediaLinks.Tests\AspNetCore.HypermediaLinks.Tests.csproj", "{3E5AB82E-3AD5-4CC2-A60F-B855C08B394A}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9613372C-CE2C-40AB-9BCB-6DA4182B0EF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9613372C-CE2C-40AB-9BCB-6DA4182B0EF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9613372C-CE2C-40AB-9BCB-6DA4182B0EF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9613372C-CE2C-40AB-9BCB-6DA4182B0EF3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E5AB82E-3AD5-4CC2-A60F-B855C08B394A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E5AB82E-3AD5-4CC2-A60F-B855C08B394A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E5AB82E-3AD5-4CC2-A60F-B855C08B394A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E5AB82E-3AD5-4CC2-A60F-B855C08B394A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9613372C-CE2C-40AB-9BCB-6DA4182B0EF3} = {0A5C44F8-635D-4F58-8B98-5C43E5D65B6B}
+		{3E5AB82E-3AD5-4CC2-A60F-B855C08B394A} = {81150834-A195-4DBA-B9E3-8A2A1D67CC68}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3AD8F58C-716A-4886-A73F-31609D03E181}

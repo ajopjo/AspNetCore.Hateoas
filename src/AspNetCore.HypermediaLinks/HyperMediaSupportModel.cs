@@ -6,7 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using static System.Reflection.BindingFlags;
-[assembly: InternalsVisibleTo("AspNetCore.Hateoas.Tests")]
+[assembly: InternalsVisibleTo("AspNetCore.HypermediaLinks.Tests")]
 namespace AspNetCore.HypermediaLinks
 {
     public abstract class HyperMediaSupportModel

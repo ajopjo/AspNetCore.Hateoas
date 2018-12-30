@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using  static System.Reflection.BindingFlags;
 
 namespace AspNetCore.HypermediaLinks
 {
@@ -39,6 +40,17 @@ namespace AspNetCore.HypermediaLinks
         public static bool IsLinkSupportModel(this PropertyInfo p)
         {
             return p.PropertyType.IsSubclassOf(typeof(HyperMediaSupportModel));
+        }
+
+        public static StringBuilder ReplaceValues(this StringBuilder template, object obj) {
+
+            var props = obj.GetType().GetProperties(Instance | Public).ToList();
+            //TODO validate the input value count
+            props.ForEach(p =>
+            {
+                template.Replace($"{{{p.Name}}}", p.GetValue(obj)?.ToString());
+            });
+            return template;
         }
     }
 }

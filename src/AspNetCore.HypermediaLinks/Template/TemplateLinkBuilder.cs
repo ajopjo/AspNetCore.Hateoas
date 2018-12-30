@@ -20,20 +20,6 @@ namespace AspNetCore.HypermediaLinks.Template
             _template = template;
         }
 
-        public ITemplateLinkBuilder Attribute(string key, string value)
-        {
-            if (string.IsNullOrEmpty(key))
-            {
-                throw new ArgumentNullException(key);
-            }
-            if (string.IsNullOrEmpty(value))
-            {
-                throw new ArgumentNullException(value);
-            }
-            _link.Attributes.Add(key.ToLower(), value);
-            return this;
-        }
-
         public ITemplateLinkBuilder Type(string method)
         {
             if (string.IsNullOrEmpty(method))
@@ -50,14 +36,32 @@ namespace AspNetCore.HypermediaLinks.Template
             {
                 throw new ArgumentNullException("obj", "please add path values");
             }
-            var props = obj.GetType().GetProperties(Instance | Public).ToList();
-            props.ForEach(p =>
-            {
-                _template.Replace($"{{{p.Name}}}", p.GetValue(obj)?.ToString());
-            });
+            _template.ReplaceValues(obj);
             return this;
         }
-        public IRelBuilder Then()
+
+        public ITemplateLinkBuilder Title(string title)
+        {
+            if (string.IsNullOrEmpty(title))
+                throw new ArgumentNullException(title);
+            _link.Title = title;
+            return this;
+        }
+
+        public ITemplateLinkBuilder Name(string name)
+        {
+            if (string.IsNullOrEmpty(name))
+                throw new ArgumentNullException(name);
+            _link.Name = name;
+            return this;
+        }
+
+        public ITemplateLinkBuilder IsTemplate(bool isTemplate)
+        {
+            _link.Templated = isTemplate;
+            return this;
+        }
+        public IRelBuilder Build()
         {
             _link.Href = new Uri(_uri, _template.ToString());
             return new RelBuilder(_link);
@@ -77,7 +81,4 @@ namespace AspNetCore.HypermediaLinks.Template
             }
         }
     }
-
-
-
 }

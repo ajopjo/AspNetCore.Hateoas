@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using Xunit;
 
-namespace AspNetCore.Hateoas.Tests
+namespace AspNetCore.HypermediaLinks.Tests
 {
     public class TemplateLinkbuilderTests
     {
@@ -86,7 +86,7 @@ namespace AspNetCore.Hateoas.Tests
         public int Id { get; set; }
         public override void AddHypermediaLinks(HypermediaBuilder builder)
         {
-            Add(builder.Fromtemplate(new Uri("https://templatetest.com"), "/moq/{id}/items").Values(new { id = Id }).Then().AddSelfRel());
+            Add(builder.Fromtemplate(new Uri("https://templatetest.com"), "/moq/{id}/items").Values(new { id = Id }).Build().AddSelfRel());
         }
     }
 
@@ -95,7 +95,7 @@ namespace AspNetCore.Hateoas.Tests
         public MoqTestModel[] TestModels { get; set; }
         public override void AddHypermediaLinks(HypermediaBuilder builder)
         {
-            Add(builder.Fromtemplate(new Uri("https://templatetest.com"), "/moqarray").Then().AddSelfRel());
+            Add(builder.Fromtemplate(new Uri("https://templatetest.com"), "/moqarray").Build().AddSelfRel());
         }
     }
 
@@ -106,7 +106,7 @@ namespace AspNetCore.Hateoas.Tests
 
         public override void AddHypermediaLinks(HypermediaBuilder builder)
         {
-            Add(builder.Fromtemplate(new Uri("https://templatetest.com"), "/genericlist").Then().AddSelfRel());
+            Add(builder.Fromtemplate(new Uri("https://templatetest.com"), "/genericlist").Build().AddSelfRel());
         }
     }
 }

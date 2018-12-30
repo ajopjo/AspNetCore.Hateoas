@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
-namespace AspNetCore.Hateoas.Tests
+namespace AspNetCore.HypermediaLinks.Tests
 {
     public class HyperMediaModelTests
     {

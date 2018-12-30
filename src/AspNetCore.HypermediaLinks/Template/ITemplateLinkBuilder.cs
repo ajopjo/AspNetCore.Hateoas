@@ -9,7 +9,10 @@ namespace AspNetCore.HypermediaLinks.Template
     {
         ITemplateLinkBuilder Values(object obj);
         ITemplateLinkBuilder Type(string method);
-        ITemplateLinkBuilder Attribute(string key, string value);
-        IRelBuilder Then();
+        ITemplateLinkBuilder Title(string title);
+        ITemplateLinkBuilder Name(string name);
+        ITemplateLinkBuilder IsTemplate(bool isTemplate);
+        //ITemplateLinkBuilder Attribute(string key, string value);
+        IRelBuilder Build();
     }
 }

@@ -87,18 +87,9 @@ namespace AspNetCore.HypermediaLinks
         public string Rel { get; set; }
         public Uri Href { get; set; }
         public string Type { get; set; }
-        public Dictionary<string, string> Attributes { get; } = new Dictionary<string, string>();
-        internal void Add(KeyValuePair<string, string> kvp)
-        {
-            if (Attributes.ContainsKey(kvp.Key))
-            {
-                Attributes[kvp.Key] = kvp.Value;
-            }
-            else
-            {
-                Attributes.Add(kvp.Key, kvp.Value);
-            }
-        }
+        public bool Templated { get; set; }
+        public string Title { get; set; }
+        public string Name { get; set; }
     }
 
     public class KeyComparer : IEqualityComparer<KeyValuePair<string, Link>>

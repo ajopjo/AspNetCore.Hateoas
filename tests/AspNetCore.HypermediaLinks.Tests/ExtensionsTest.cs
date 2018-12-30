@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Text;
 using Xunit;
 
-namespace AspNetCore.Hateoas.Tests
+namespace AspNetCore.HypermediaLinks.Tests
 {
     public class ExtensionsTest
     {

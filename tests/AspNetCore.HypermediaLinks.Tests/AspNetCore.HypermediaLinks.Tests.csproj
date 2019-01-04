@@ -13,10 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Integration\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\src\AspNetCore.HypermediaLinks\AspNetCore.HypermediaLinks.csproj" />
   </ItemGroup>
 

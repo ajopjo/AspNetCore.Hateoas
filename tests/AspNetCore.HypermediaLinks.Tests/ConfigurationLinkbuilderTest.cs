@@ -39,7 +39,7 @@ namespace AspNetCore.HypermediaLinks.Tests
         public int Id { get; set; }
         public override void AddHypermediaLinks(HypermediaBuilder builder)
         {
-            Add(builder.FormConfiguration("modeltest").Values(new { Id = 1 }));
+            Add(builder.FormConfiguration("modeltest", new { Id = 1 }).Build());
         }
     }
 

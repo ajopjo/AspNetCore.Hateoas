@@ -52,6 +52,7 @@ namespace AspNetCore.HypermediaLinks.Tests
             }
 
         }
+
     }
 
     class TestClass : HyperMediaSupportModel

@@ -9,16 +9,23 @@ namespace AspNetCore.HypermediaLinks.Template
 {
     public class TemplateLinkBuilder : ITemplateLinkBuilder
     {
-        private readonly Uri _uri;
-        private readonly StringBuilder _template;
         private readonly Link _link = new Link();
 
-        public TemplateLinkBuilder(Uri uri, StringBuilder template)
+        public TemplateLinkBuilder(Uri uri, StringBuilder template, object values = null)
         {
             Guard(uri, template);
-            _uri = uri;
-            _template = template;
+            if (values != null)
+            {
+                template.ReplaceValues(values);
+            }
+            _link.Href = new Uri(uri, template.ToString());
         }
+
+        public TemplateLinkBuilder(string linkHref)
+        {
+            _link.Href = new Uri(linkHref);
+        }
+
 
         public ITemplateLinkBuilder Type(string method)
         {
@@ -27,16 +34,6 @@ namespace AspNetCore.HypermediaLinks.Template
                 throw new ArgumentNullException(method);
             }
             _link.Type = method.ToUpper();
-            return this;
-        }
-
-        public ITemplateLinkBuilder Values(object obj)
-        {
-            if (obj == null)
-            {
-                throw new ArgumentNullException("obj", "please add path values");
-            }
-            _template.ReplaceValues(obj);
             return this;
         }
 
@@ -63,7 +60,7 @@ namespace AspNetCore.HypermediaLinks.Template
         }
         public IRelBuilder Build()
         {
-            _link.Href = new Uri(_uri, _template.ToString());
+
             return new RelBuilder(_link);
         }
 

@@ -7,12 +7,11 @@ namespace AspNetCore.HypermediaLinks.Template
 {
     public interface ITemplateLinkBuilder
     {
-        ITemplateLinkBuilder Values(object obj);
+        //ITemplateLinkBuilder Values(object obj);
         ITemplateLinkBuilder Type(string method);
         ITemplateLinkBuilder Title(string title);
         ITemplateLinkBuilder Name(string name);
         ITemplateLinkBuilder IsTemplate(bool isTemplate);
-        //ITemplateLinkBuilder Attribute(string key, string value);
         IRelBuilder Build();
     }
 }

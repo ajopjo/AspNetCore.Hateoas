@@ -1,9 +1,16 @@
 ﻿using AspNetCore.HypermediaLinks;
+using AspNetCore.HypermediaLinks.Tests.Integration;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
+using System.Threading.Tasks;
 using Xunit;
+using System.Collections;
 
 namespace AspNetCore.HypermediaLinks.Tests
 {
@@ -52,9 +59,67 @@ namespace AspNetCore.HypermediaLinks.Tests
             }
 
         }
+        [Fact]
+        public void ControllerMetaDataTest()
+        {
+            var res = GetMetaDataForAction<FakeController>(c => nameof(c.Get));
+            Assert.Equal("Fake", res.Item1);
+            Assert.Equal("Get", res.Item2);
+        }
+
+        [Fact]
+        public void ControllerAsyncActionMetaDataTestWithParams()
+        {
+            var res = GetMetaDataForActionwithParams<FakeController>(c => c.Get("test"));
+            Assert.Equal("Get", res.Item1);
+            var routeVals = res.Item2;
+            Assert.Equal(1, res.Item2.Count());
+        }
+
+        [Fact]
+        public void ControllerActionMetaDataTestWithParams()
+        {
+            var res = GetMetaDataForActionwithParams<FakeController>(c => c.Get("test", 10));
+            Assert.Equal("Get", res.Item1);
+            var routeVals = res.Item2;
+            Assert.Equal(2, res.Item2.Count());
+        }
+
+        [Theory]
+        [ClassData(typeof(FakeRequestTestData))]
+        public void ControllerTestWithComplexParams(FakeRequest req)
+        {
+            var result = GetMetaDataForActionwithParams<FakeController>(c => c.Get(req));
+            Assert.Equal("Get", result.Item1);
+            var routeVals = result.Item2;
+            Assert.Equal(1, result.Item2.Count());
+            Assert.Equal(req, result.Item2.FirstOrDefault().Value);
+        }
+        private Tuple<string, string> GetMetaDataForAction<T>(Expression<Func<T, string>> action) where T : ControllerBase
+        {
+            var controllerName = typeof(T).GetControllerName<T>();
+            if (!(action.Body is ConstantExpression constExp))
+                throw new ArgumentException("Action name must be a constant expression");
+
+            return new Tuple<string, string>(controllerName, constExp.Value.ToString());
+        }
+
+        private Tuple<string, Dictionary<string, object>> GetMetaDataForActionwithParams<T>(Expression<Func<T, object>> action) where T : ControllerBase
+        {
+            var routeValues = action.GetRouteValues();
+            return new Tuple<string, Dictionary<string, object>>(action.GetActionName(), routeValues);
+        }
 
     }
 
+    public class FakeRequestTestData : TheoryData<FakeRequest>
+    {
+        public FakeRequestTestData()
+        {
+            Add(new FakeRequest() { Id = Guid.NewGuid(), Name = "test1" });
+            Add(new FakeRequest() { Id = Guid.NewGuid(), Name = "test2" });
+        }
+    }
     class TestClass : HyperMediaSupportModel
     {
 

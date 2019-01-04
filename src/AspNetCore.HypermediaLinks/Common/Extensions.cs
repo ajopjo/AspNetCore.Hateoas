@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Routing;
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -12,6 +13,7 @@ namespace AspNetCore.HypermediaLinks
 {
     public static class Extensions
     {
+        private const string ControllerSuffix = "Controller";
         /// <summary>
         /// at present this support Ienumerable
         /// </summary>
@@ -45,7 +47,8 @@ namespace AspNetCore.HypermediaLinks
             return p.PropertyType.IsSubclassOf(typeof(HyperMediaSupportModel));
         }
 
-        public static StringBuilder ReplaceValues(this StringBuilder template, object obj) {
+        public static StringBuilder ReplaceValues(this StringBuilder template, object obj)
+        {
 
             var props = obj.GetType().GetProperties(Instance | Public).ToList();
             //TODO validate the input value count
@@ -56,7 +59,6 @@ namespace AspNetCore.HypermediaLinks
             return template;
         }
 
-        private const string ControllerSuffix = "Controller";
         public static string GetControllerName<T>(this Type t) where T : ControllerBase
         {
             return t.Name.Replace(ControllerSuffix, string.Empty);
@@ -72,13 +74,16 @@ namespace AspNetCore.HypermediaLinks
             }
             if (member == null)
             {
-                throw new ArgumentException("Action must be a member expression.");
+                var mce = action.Body as MethodCallExpression;
+                if (mce == null)
+                    throw new ArgumentException("Action must be a member or method call expression.");
+                return mce.Method.Name;
             }
             return member.Member.Name;
 
         }
 
-        public static RouteValueDictionary GetRouteValues(this LambdaExpression action)
+        public static Dictionary<string, object> GetRouteValues(this LambdaExpression action)
         {
             var mce = action.Body as MethodCallExpression;
             if (mce?.Object == null)
@@ -86,19 +91,17 @@ namespace AspNetCore.HypermediaLinks
                 throw new ArgumentNullException("Action Method expression is empty");
             }
             var mps = mce.Method.GetParameters();
-            var routeValues = new RouteValueDictionary();
-
+            var routeValues = new Dictionary<string,object>();
+            
             for (int i = 0; i < mps.Length; i++)
             {
-                var argVal = mce.Arguments[i].GetArgumentValue();
-
+                var argVal = mce.Arguments[i].GetArgumentValue();               
                 routeValues.TryAdd(mps[i].Name, argVal);
-
             }
             return routeValues;
         }
 
-        public static object GetArgumentValue(this Expression exp)
+        private static object GetArgumentValue(this Expression exp)
         {
             object argumentValue;
 

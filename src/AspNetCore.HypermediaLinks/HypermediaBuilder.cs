@@ -1,12 +1,15 @@
 ﻿using AspNetCore.HypermediaLinks.Configuration;
 using AspNetCore.HypermediaLinks.Template;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Routing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading.Tasks;
+
 [assembly: InternalsVisibleTo("AspNetCore.HypermediaLinks.Tests")]
 namespace AspNetCore.HypermediaLinks
 {
@@ -56,14 +59,7 @@ namespace AspNetCore.HypermediaLinks
             }
             return new ConfigurationLinkBuilder(linkConfig, values);
         }
-        public ITemplateLinkBuilder FromController<T>(Expression<Func<T, Func<IActionResult>>> action, object values = null) where T : ControllerBase
-        {
-            Type t = typeof(T);
-            var controllerName = t.GetControllerName<T>();
-            var actionName = action.GetActionName();
-            var link = _urlHelper.Action(actionName, controllerName, values, _uri.Scheme, _uri.Host);
-            return new TemplateLinkBuilder(link);
-        }
+
         public ITemplateLinkBuilder FromController<T>(Expression<Func<T, string>> action, object values = null) where T : ControllerBase
         {
             if (!(action.Body is ConstantExpression constExp))
@@ -74,14 +70,28 @@ namespace AspNetCore.HypermediaLinks
             var link = _urlHelper.Action(actionName, controllerName, values, _uri.Scheme, _uri.Host);
             return new TemplateLinkBuilder(link);
         }
+
+        public ITemplateLinkBuilder FromController<T>(Expression<Func<T, object>> action) where T : ControllerBase
+        {
+            Type t = typeof(T);      
+            var link = _urlHelper.Action(new UrlActionContext()
+            {
+                Controller = t.GetControllerName<T>(),
+                Action = action.GetActionName(),
+                Values = action.GetRouteValues(),
+                Host = _uri.Host,
+                Protocol = _uri.Scheme
+            });
+            return new TemplateLinkBuilder(link);
+        }
     }
 
     public interface IHypermediaBuilder
     {
         ITemplateLinkBuilder Fromtemplate(string template, object values = null, string uri = null);
         ITemplateLinkBuilder Fromtemplate(string template, object values = null, Uri uri = null);
-        ITemplateLinkBuilder FromController<T>(Expression<Func<T, Func<IActionResult>>> action, object values = null) where T : ControllerBase;
         ITemplateLinkBuilder FromController<T>(Expression<Func<T, string>> action, object values = null) where T : ControllerBase;
+        ITemplateLinkBuilder FromController<T>(Expression<Func<T, object>> action) where T : ControllerBase;
         IConfigurationLinkBuilder FormConfiguration(string name, object values = null);
     }
 }

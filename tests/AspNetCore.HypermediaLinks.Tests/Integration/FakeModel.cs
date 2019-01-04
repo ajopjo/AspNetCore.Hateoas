@@ -4,12 +4,17 @@ using System.Text;
 
 namespace AspNetCore.HypermediaLinks.Tests.Integration
 {
-    public class FakeModel
+    public class FakeModel: HyperMediaSupportModel
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
         public int Age { get; set; }
         public IEnumerable<FakeAddressModel> Addresses { get; set; }
+
+        public override void AddHypermediaLinks(HypermediaBuilder builder)
+        {
+            //Add(builder.FromController<FakeController>(c=>c.get))
+        }
     }
 
     public class FakeAddressModel

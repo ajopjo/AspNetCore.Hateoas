@@ -39,7 +39,7 @@ namespace AspNetCore.HypermediaLinks.Tests.Integration
 
         public void Configure(IApplicationBuilder app)
         {
-
+            app.UseMvc();
         }
     }
 }

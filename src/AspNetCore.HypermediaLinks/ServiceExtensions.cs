@@ -15,17 +15,14 @@ namespace AspNetCore.HypermediaLinks
     {
         public static IServiceCollection AddLinkBuilder(this IServiceCollection services, IConfiguration config = null, bool alwaysIncludeLinks = false)
         {
-            if (config != null)
-            {
-                services.Configure<List<LinkConfiguration>>(o => config.GetSection("hypermediaLinks"));
-            }
-
+            services.Configure<List<LinkConfiguration>>(config.GetSection("hyperMediaLinks"));
             services.TryAddSingleton(new LinkBuilderSettings() { AlwaysIncludeLinks = alwaysIncludeLinks });
             services.TryAddScoped<IUrlHelperFactory, UrlHelperFactory>();
             services.TryAddScoped<IActionContextAccessor, ActionContextAccessor>();
-            services.TryAddScoped(x =>
+            services.TryAddScoped<IHypermediaBuilder>(x =>
             {
-                return x.GetRequiredService<IUrlHelperFactory>().GetUrlHelper(x.GetRequiredService<IActionContextAccessor>().ActionContext);
+                return new HypermediaBuilder(x.GetRequiredService<IUrlHelperFactory>().GetUrlHelper(x.GetRequiredService<IActionContextAccessor>().ActionContext)
+                    , x.GetRequiredService<IOptions<List<LinkConfiguration>>>());
             });
             services.AddSingleton<IConfigureOptions<MvcOptions>, HyperMediaJsonSettingsOptions>();
             return services;

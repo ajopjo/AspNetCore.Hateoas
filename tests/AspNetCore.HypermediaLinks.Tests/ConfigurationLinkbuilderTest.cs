@@ -27,9 +27,9 @@ namespace AspNetCore.HypermediaLinks.Tests
             var model = new MoqConfigModel();
             model.AddHyperMediaSupportLinks(new HypermediaBuilder(_configs));
             Assert.Equal(1, model.Links.Count());
-            Assert.Equal("self", model.Links.FirstOrDefault().Key);
-            Assert.Equal("GET", model.Links.FirstOrDefault().Value.Type);
-            Assert.Equal(new Uri("https://configtest.com/modeltest/1"), model.Links.FirstOrDefault().Value.Href);
+            Assert.Equal("self", model.Links.FirstOrDefault().Rel);
+            Assert.Equal("GET", model.Links.FirstOrDefault().Type);
+            Assert.Equal(new Uri("https://configtest.com/modeltest/1"), model.Links.FirstOrDefault().Href);
         }
 
     }

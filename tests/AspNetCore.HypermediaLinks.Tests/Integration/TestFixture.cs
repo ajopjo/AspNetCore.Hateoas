@@ -20,7 +20,7 @@ namespace AspNetCore.HypermediaLinks.Tests.Integration
             var builder = new WebHostBuilder();
             builder.UseConfiguration(new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json").Build());
             builder.UseStartup(typeof(TStartUp));
-
+            _testServer = new TestServer(builder);
             HttpClient = _testServer.CreateClient();
             HttpClient.DefaultRequestHeaders.Accept.Clear();
             HttpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(settings.MediaType));

@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -15,20 +14,19 @@ namespace AspNetCore.HypermediaLinks
         /// <summary>
         /// Support for HAL or Hateoas
         /// </summary>  
-        private List<KeyValuePair<string, Link>> _links = new List<KeyValuePair<string, Link>>();
+        private List<Link> _links = new List<Link>();
 
         [JsonProperty(PropertyName = "_links")]
-        public IEnumerable<KeyValuePair<string, Link>> Links { get => _links; }
+        public IEnumerable<Link> Links { get => _links; }
 
         protected internal void Add(Link link)
         {
-            var kvp = new KeyValuePair<string, Link>(link.Rel, link);
-
-            if (_links.Contains(kvp, new KeyComparer()))
+            
+            if (_links.Contains(link, new KeyComparer()))
             {
                 throw new ArgumentException("Link rel already exists", link.Rel);
             }
-            _links.Add(kvp);
+            _links.Add(link);
         }
 
         internal void AddHyperMediaSupportLinks(HypermediaBuilder builder)
@@ -87,21 +85,21 @@ namespace AspNetCore.HypermediaLinks
         public string Rel { get; set; }
         public Uri Href { get; set; }
         public string Type { get; set; }
-        public bool Templated { get; set; }
+        public bool? Templated { get; set; }
         public string Title { get; set; }
         public string Name { get; set; }
     }
 
-    public class KeyComparer : IEqualityComparer<KeyValuePair<string, Link>>
+    public class KeyComparer : IEqualityComparer<Link>
     {
-        public bool Equals(KeyValuePair<string, Link> x, KeyValuePair<string, Link> y)
+        public bool Equals(Link x, Link y)
         {
-            return x.Key.Equals(y.Key, StringComparison.InvariantCultureIgnoreCase);
+            return x.Rel.Equals(y.Rel, StringComparison.InvariantCultureIgnoreCase);
         }
 
-        public int GetHashCode(KeyValuePair<string, Link> obj)
+        public int GetHashCode(Link obj)
         {
-            return obj.Key.GetHashCode();
+            return obj.Name.GetHashCode();
         }
     }
 }

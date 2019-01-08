@@ -19,4 +19,10 @@
     <ProjectReference Include="..\..\src\AspNetCore.HypermediaLinks\AspNetCore.HypermediaLinks.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

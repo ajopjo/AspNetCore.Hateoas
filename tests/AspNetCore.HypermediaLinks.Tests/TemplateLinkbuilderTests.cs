@@ -15,8 +15,8 @@ namespace AspNetCore.HypermediaLinks.Tests
             var model = new MoqTestModel() { Id = 1 };
             model.AddHyperMediaSupportLinks(new HypermediaBuilder());
             Assert.Equal(1, model.Links.Count());
-            Assert.Equal(model.Links.FirstOrDefault().Key, "self");
-            Assert.Equal(model.Links.FirstOrDefault().Value.Href, new Uri("https://templatetest.com/moq/1/items"));
+            Assert.Equal(model.Links.FirstOrDefault().Rel, "self");
+            Assert.Equal(model.Links.FirstOrDefault().Href, new Uri("https://templatetest.com/moq/1/items"));
         }
 
         [Fact]
@@ -31,15 +31,15 @@ namespace AspNetCore.HypermediaLinks.Tests
             };
             model.AddHyperMediaSupportLinks(new HypermediaBuilder());
             Assert.Equal(1, model.Links.Count());
-            Assert.Equal(model.Links.FirstOrDefault().Key, "self");
-            Assert.Equal(model.Links.FirstOrDefault().Value.Href, new Uri("https://templatetest.com/moqarray"));
+            Assert.Equal(model.Links.FirstOrDefault().Rel, "self");
+            Assert.Equal(model.Links.FirstOrDefault().Href, new Uri("https://templatetest.com/moqarray"));
             int count = 0;
             foreach (var item in model.TestModels)
             {
                 ++count;
                 Assert.Equal(1, item.Links.Count());
-                Assert.Equal(item.Links.FirstOrDefault().Key, "self");
-                Assert.Equal(item.Links.FirstOrDefault().Value.Href, new Uri($"https://templatetest.com/moq/{count}/items"));
+                Assert.Equal(item.Links.FirstOrDefault().Rel, "self");
+                Assert.Equal(item.Links.FirstOrDefault().Href, new Uri($"https://templatetest.com/moq/{count}/items"));
             }
         }
 
@@ -60,23 +60,23 @@ namespace AspNetCore.HypermediaLinks.Tests
             };
             model.AddHyperMediaSupportLinks(new HypermediaBuilder());
             Assert.Equal(1, model.Links.Count());
-            Assert.Equal(model.Links.FirstOrDefault().Key, "self");
-            Assert.Equal(model.Links.FirstOrDefault().Value.Href, new Uri("https://templatetest.com/genericlist"));
+            Assert.Equal(model.Links.FirstOrDefault().Rel, "self");
+            Assert.Equal(model.Links.FirstOrDefault().Href, new Uri("https://templatetest.com/genericlist"));
             int count = 0;
             foreach (var item in model.TestModels)
             {
                 ++count;
                 Assert.Equal(1, item.Links.Count());
-                Assert.Equal(item.Links.FirstOrDefault().Key, "self");
-                Assert.Equal(item.Links.FirstOrDefault().Value.Href, new Uri($"https://templatetest.com/moq/{count}/items"));
+                Assert.Equal(item.Links.FirstOrDefault().Rel, "self");
+                Assert.Equal(item.Links.FirstOrDefault().Href, new Uri($"https://templatetest.com/moq/{count}/items"));
             }
             count = 0;
             foreach (var item in model.TestModelList)
             {
                 ++count;
                 Assert.Equal(1, item.Links.Count());
-                Assert.Equal(item.Links.FirstOrDefault().Key, "self");
-                Assert.Equal(item.Links.FirstOrDefault().Value.Href, new Uri($"https://templatetest.com/moq/{count}/items"));
+                Assert.Equal(item.Links.FirstOrDefault().Rel, "self");
+                Assert.Equal(item.Links.FirstOrDefault().Href, new Uri($"https://templatetest.com/moq/{count}/items"));
             }
         }
     }

@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace AspNetCore.HypermediaLinks.Tests.Integration
 {
-    public class FakeModel: HyperMediaSupportModel
+    public class FakeModel : HyperMediaSupportModel
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
@@ -13,7 +12,7 @@ namespace AspNetCore.HypermediaLinks.Tests.Integration
 
         public override void AddHypermediaLinks(HypermediaBuilder builder)
         {
-            //Add(builder.FromController<FakeController>(c=>c.get))
+            Add(builder.FromController<FakeController>(c => nameof(c.Get), new { Id = Guid.NewGuid(), Name = "Ajo" }).Build().AddSelfRel());
         }
     }
 

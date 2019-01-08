@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Routing;
 using System;
 using System.Collections.Generic;
-using System.Dynamic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -74,8 +72,7 @@ namespace AspNetCore.HypermediaLinks
             }
             if (member == null)
             {
-                var mce = action.Body as MethodCallExpression;
-                if (mce == null)
+                if (!(action.Body is MethodCallExpression mce))
                     throw new ArgumentException("Action must be a member or method call expression.");
                 return mce.Method.Name;
             }

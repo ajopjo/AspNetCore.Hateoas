@@ -89,7 +89,7 @@ namespace AspNetCore.HypermediaLinks.Tests
         [ClassData(typeof(FakeRequestTestData))]
         public void ControllerTestWithComplexParams(FakeRequest req)
         {
-            var result = GetMetaDataForActionwithParams<FakeController>(c => c.Get(req));
+            var result = GetMetaDataForActionwithParams<FakeController>(c => c.GetSimpleModel(req));
             Assert.Equal("Get", result.Item1);
             var routeVals = result.Item2;
             Assert.Equal(1, result.Item2.Count());
@@ -116,8 +116,8 @@ namespace AspNetCore.HypermediaLinks.Tests
     {
         public FakeRequestTestData()
         {
-            Add(new FakeRequest() { Id = Guid.NewGuid(), Name = "test1" });
-            Add(new FakeRequest() { Id = Guid.NewGuid(), Name = "test2" });
+            Add(new FakeRequest() { Id = 1, Name = "test1" });
+            Add(new FakeRequest() { Id = 2, Name = "test2" });
         }
     }
     class TestClass : HyperMediaSupportModel

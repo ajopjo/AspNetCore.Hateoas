@@ -1,7 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace AspNetCore.HypermediaLinks.Tests.Integration
@@ -16,13 +13,8 @@ namespace AspNetCore.HypermediaLinks.Tests.Integration
             return Ok($"Hello world {name}");
         }
 
-        public ActionResult Get(string name, int age)
-        {
-            return Ok($"Hello world {name} and your age is {age}");
-        }
-
         [Route("fakeModel")]
-        public ActionResult Get([FromQuery] FakeRequest req)
+        public ActionResult GetSimpleModel([FromQuery] FakeRequest req)
         {
             return Ok(new FakeModel()
             {
@@ -30,5 +22,21 @@ namespace AspNetCore.HypermediaLinks.Tests.Integration
                 Name = req.Name
             });
         }
+
+        [Route("fakeArrayModel")]
+        public ActionResult Get(string name, int id)
+        {
+            var result = new FakeArrayModel()
+            {
+                Name = name,
+                Id = id,
+                FakeModels = new FakeModel[] { new FakeModel() { Name = "test1", Id = 1 }, new FakeModel() { Name = "test2", Id = 2 } }
+
+            };
+
+            return Ok(result);
+        }
+
+
     }
 }

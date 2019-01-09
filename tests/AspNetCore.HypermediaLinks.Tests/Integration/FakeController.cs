@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace AspNetCore.HypermediaLinks.Tests.Integration
@@ -8,9 +9,9 @@ namespace AspNetCore.HypermediaLinks.Tests.Integration
     public class FakeController : ControllerBase
     {
         [Route("helloworld")]
-        public async Task<ActionResult> Get(string name)
+        public async Task<ActionResult> Get(string name, int age)
         {
-            return Ok($"Hello world {name}");
+            return Ok($"Hello world {name} {age}");
         }
 
         [Route("fakeModel")]
@@ -24,13 +25,15 @@ namespace AspNetCore.HypermediaLinks.Tests.Integration
         }
 
         [Route("fakeArrayModel")]
-        public ActionResult Get(string name, int id)
+        public ActionResult GetCollectionModel(string name, int id)
         {
             var result = new FakeArrayModel()
             {
                 Name = name,
                 Id = id,
-                FakeModels = new FakeModel[] { new FakeModel() { Name = "test1", Id = 1 }, new FakeModel() { Name = "test2", Id = 2 } }
+                FakeModelsArrays = new FakeModel[] { new FakeModel() { Name = "test1", Id = 1 }, new FakeModel() { Name = "test2", Id = 2 } },
+                FakeModelList = new List<FakeModel>() { new FakeModel() { Name = "test3", Id = 3 }, new FakeModel() { Name = "test4", Id = 4 } },
+                FakeModels = new List<FakeModel>() { new FakeModel() { Name = "test5", Id = 5 }, new FakeModel() { Name = "test6", Id = 6 } }
 
             };
 

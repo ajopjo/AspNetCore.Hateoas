@@ -67,14 +67,6 @@ namespace AspNetCore.HypermediaLinks.Tests
             Assert.Equal("Get", res.Item2);
         }
 
-        [Fact]
-        public void ControllerAsyncActionMetaDataTestWithParams()
-        {
-            var res = GetMetaDataForActionwithParams<FakeController>(c => c.Get("test"));
-            Assert.Equal("Get", res.Item1);
-            var routeVals = res.Item2;
-            Assert.Equal(1, res.Item2.Count());
-        }
 
         [Fact]
         public void ControllerActionMetaDataTestWithParams()

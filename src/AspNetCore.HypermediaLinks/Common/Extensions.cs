@@ -22,7 +22,9 @@ namespace AspNetCore.HypermediaLinks
             var type = p.PropertyType;
             if (type.IsGenericType &&
                 (type.GetGenericTypeDefinition() == typeof(IEnumerable<>) ||
-                type.GetGenericTypeDefinition() == typeof(IList<>))
+                type.GetGenericTypeDefinition() == typeof(IList<>) ||
+                 type.GetGenericTypeDefinition() == typeof(List<>) ||
+                type.GetGenericTypeDefinition() == typeof(ICollection<>))
                )
             {
                 var arg = type.GetGenericArguments().FirstOrDefault();
@@ -88,11 +90,11 @@ namespace AspNetCore.HypermediaLinks
                 throw new ArgumentNullException("Action Method expression is empty");
             }
             var mps = mce.Method.GetParameters();
-            var routeValues = new Dictionary<string,object>();
-            
+            var routeValues = new Dictionary<string, object>();
+
             for (int i = 0; i < mps.Length; i++)
             {
-                var argVal = mce.Arguments[i].GetArgumentValue();               
+                var argVal = mce.Arguments[i].GetArgumentValue();
                 routeValues.TryAdd(mps[i].Name, argVal);
             }
             return routeValues;

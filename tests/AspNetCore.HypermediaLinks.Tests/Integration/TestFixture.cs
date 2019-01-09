@@ -15,7 +15,7 @@ namespace AspNetCore.HypermediaLinks.Tests.Integration
         private readonly TestServer _testServer;
         public HttpClient HttpClient { get; }
 
-        public TestFixture(TestServerSettings settings)
+        public TestFixture(TestServerSettings settings = null)
         {
             var builder = new WebHostBuilder();
             builder.UseConfiguration(new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json").Build());
@@ -23,7 +23,9 @@ namespace AspNetCore.HypermediaLinks.Tests.Integration
             _testServer = new TestServer(builder);
             HttpClient = _testServer.CreateClient();
             HttpClient.DefaultRequestHeaders.Accept.Clear();
-            HttpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(settings.MediaType));
+
+            if (settings != null)
+                HttpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(settings.MediaType));
         }
         public void Dispose()
         {

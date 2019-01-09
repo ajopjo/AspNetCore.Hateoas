@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace AspNetCore.HypermediaLinks.Tests.Integration
 {
@@ -24,10 +25,13 @@ namespace AspNetCore.HypermediaLinks.Tests.Integration
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public FakeModel[] FakeModels { get; set; }
+        public FakeModel[] FakeModelsArrays { get; set; }
+        public IEnumerable<FakeModel> FakeModels { get; set; }
+        public List<FakeModel> FakeModelList { get; set; }
+
         public override void AddHypermediaLinks(HypermediaBuilder builder)
         {
-            Add(builder.FromController<FakeController>(c => nameof(c.Get), new { Id = Id, Name = Name }).Build().AddSelfRel());
+            Add(builder.FromController<FakeController>(c => nameof(c.GetCollectionModel), new { id = Id, name = Name }).Build().AddSelfRel());
         }
     }
 

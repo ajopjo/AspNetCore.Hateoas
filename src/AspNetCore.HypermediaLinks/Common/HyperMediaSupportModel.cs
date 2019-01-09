@@ -21,7 +21,7 @@ namespace AspNetCore.HypermediaLinks
 
         protected internal void Add(Link link)
         {
-            
+
             if (_links.Contains(link, new KeyComparer()))
             {
                 throw new ArgumentException("Link rel already exists", link.Rel);
@@ -74,6 +74,11 @@ namespace AspNetCore.HypermediaLinks
                     model.AddHyperMediaSupportLinks(builder);
                 }
             }
+        }
+
+        public bool ShouldSerializeLinks()
+        {
+            return (_links.Count > 0);
         }
     }
 

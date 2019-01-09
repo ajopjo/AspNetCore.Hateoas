@@ -90,7 +90,7 @@ namespace AspNetCore.HypermediaLinks.Tests
         public void ControllerTestWithComplexParams(FakeRequest req)
         {
             var result = GetMetaDataForActionwithParams<FakeController>(c => c.GetSimpleModel(req));
-            Assert.Equal("Get", result.Item1);
+            Assert.Equal("GetSimpleModel", result.Item1);
             var routeVals = result.Item2;
             Assert.Equal(1, result.Item2.Count());
             Assert.Equal(req, result.Item2.FirstOrDefault().Value);

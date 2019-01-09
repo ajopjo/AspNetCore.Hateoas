@@ -37,6 +37,13 @@ namespace AspNetCore.HypermediaLinks
         }
         #endregion
 
+        /// <summary>
+        /// Create a link from a string template
+        /// </summary>
+        /// <param name="template">string url template</param>
+        /// <param name="values">values to be added on the url</param>
+        /// <param name="uri">url host and schema, if its empty, the host and schema of the incoming request is added as uri</param>
+        /// <returns></returns>
         public ITemplateLinkBuilder Fromtemplate(string template, object values = null, string uri = null)
         {
             if (string.IsNullOrEmpty(uri))

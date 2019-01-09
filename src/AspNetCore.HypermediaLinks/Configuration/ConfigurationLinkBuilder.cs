@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AspNetCore.HypermediaLinks.Common;
+using System;
 using System.Text;
 
 namespace AspNetCore.HypermediaLinks.Configuration
@@ -16,8 +17,7 @@ namespace AspNetCore.HypermediaLinks.Configuration
                 template.ReplaceValues(values);
             _link = new Link()
             {
-                Type = linkConfiguration.Type?.ToUpper(),
-                Rel = linkConfiguration.Rel,
+                Type = linkConfiguration.Type?.ToUpper(),               
                 Templated = linkConfiguration.Templated,
                 Title = linkConfiguration.Title,
                 Name = linkConfiguration.Name,
@@ -25,10 +25,10 @@ namespace AspNetCore.HypermediaLinks.Configuration
             };
         }
 
-        public Link Build()
+        public IRelBuilder Build()
         {
 
-            return _link;
+            return new RelBuilder(_link);
         }
 
         private void Guard(LinkConfiguration linkConfiguration)

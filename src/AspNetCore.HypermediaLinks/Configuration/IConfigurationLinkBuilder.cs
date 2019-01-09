@@ -1,7 +1,9 @@
-﻿namespace AspNetCore.HypermediaLinks.Configuration
+﻿using AspNetCore.HypermediaLinks.Common;
+
+namespace AspNetCore.HypermediaLinks.Configuration
 {
     public interface IConfigurationLinkBuilder
     {
-        Link Build();
+        IRelBuilder Build();
     }
 }

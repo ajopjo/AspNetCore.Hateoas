@@ -22,7 +22,7 @@ namespace AspNetCore.HypermediaLinks.Tests.Integration
                 var model = JsonConvert.DeserializeObject<FakeModel>(jsonRes);
 
                 Assert.Equal(1, model.Id);
-                Assert.Equal("https://localhost/api/fake/fakeModel?id=1&name=Ajo", model.Links.FirstOrDefault().Href.ToString());
+                Assert.Equal("http://localhost/api/fake/fakeModel?id=1&name=Ajo", model.Links.FirstOrDefault().Href.ToString());
             }
         }
     }

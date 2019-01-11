@@ -19,22 +19,7 @@ namespace AspNetCore.HypermediaLinks
         /// <returns></returns>
         public static bool IsLinkSupportGenericType(this PropertyInfo p)
         {
-            var type = p.PropertyType;
-            if (type.IsGenericType &&
-                (type.GetGenericTypeDefinition() == typeof(IEnumerable<>) ||
-                type.GetGenericTypeDefinition() == typeof(IList<>) ||
-                 type.GetGenericTypeDefinition() == typeof(List<>) ||
-                type.GetGenericTypeDefinition() == typeof(ICollection<>))
-               )
-            {
-                var arg = type.GetGenericArguments().FirstOrDefault();
-                if (arg != null)
-                {
-                    return arg.IsSubclassOf(typeof(HyperMediaSupportModel));
-                }
-            }
-
-            return false;
+            return p.PropertyType.IsGenericType && (p.PropertyType.GetGenericArguments().FirstOrDefault()?.IsSubclassOf(typeof(HyperMediaSupportModel)) ?? false);
         }
 
         public static bool IsLinkSupportArray(this PropertyInfo p)

@@ -86,7 +86,7 @@ namespace AspNetCore.HypermediaLinks.Tests
         public int Id { get; set; }
         public override void AddHypermediaLinks(HypermediaBuilder builder)
         {
-            Add(builder.Fromtemplate("/moq/{id}/items", new { id = Id }, new Uri("https://templatetest.com")).Build().AddSelfRel());
+            Add(builder.Fromtemplate("/moq/{id}/items", new { id = Id }, uri: new Uri("https://templatetest.com")).Build().AddSelfRel());
         }
     }
 

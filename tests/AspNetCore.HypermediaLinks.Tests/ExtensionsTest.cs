@@ -87,6 +87,7 @@ namespace AspNetCore.HypermediaLinks.Tests
             Assert.Equal(1, result.Item2.Count());
             Assert.Equal(req, result.Item2.FirstOrDefault().Value);
         }
+
         private Tuple<string, string> GetMetaDataForAction<T>(Expression<Func<T, string>> action) where T : ControllerBase
         {
             var controllerName = typeof(T).GetControllerName<T>();
@@ -112,11 +113,14 @@ namespace AspNetCore.HypermediaLinks.Tests
             Add(new FakeRequest() { Id = 2, Name = "test2" });
         }
     }
+
     class TestClass : HyperMediaSupportModel
     {
 
         public IEnumerable<TestClass> Tests { get; set; }
         public IList<TestClass> TestLists { get; set; }
+        public List<TestClass> TestClassLists { get; set; }
+        public ICollection<TestClass> TestClassCollection { get; set; }
         public override void AddHypermediaLinks(HypermediaBuilder builder)
         {
             throw new NotImplementedException();

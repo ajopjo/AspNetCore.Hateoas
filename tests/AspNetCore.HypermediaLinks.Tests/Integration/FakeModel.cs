@@ -31,7 +31,7 @@ namespace AspNetCore.HypermediaLinks.Tests.Integration
 
         public override void AddHypermediaLinks(HypermediaBuilder builder)
         {
-            Add(builder.FromController<FakeController>(c => nameof(c.GetCollectionModel), new { id = Id, name = Name }).Build().AddSelfRel());
+            Add(builder.FromController<FakeController>(c => nameof(c.GetCollectionModel), values: new { id = Id, name = Name }).Build().AddSelfRel());
         }
     }
 

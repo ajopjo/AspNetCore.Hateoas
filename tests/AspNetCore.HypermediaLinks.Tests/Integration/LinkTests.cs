@@ -73,8 +73,10 @@ namespace AspNetCore.HypermediaLinks.Tests.Integration
                 var model = JsonConvert.DeserializeObject<FakeArrayModel>(jsonRes);
 
                 Assert.Equal(1, model.Id);
-                Assert.Equal(1, model.Links.Count());
+                Assert.Equal(2, model.Links.Count());
                 Assert.Equal("http://localhost/api/fake/fakeArrayModel?id=1&name=test", model.Links.FirstOrDefault().Href.ToString());
+
+                Assert.Equal("https://configtest.com/api/modeltest/1", model.Links.Where(l=>l.Rel.Equals("modeltest")).FirstOrDefault().Href.ToString());
 
                 var arrModelHref = model.FakeModelsArrays[0].Links.FirstOrDefault().Href;
                 Assert.Equal("http://localhost/api/fake/fakeModel?id=1&name=test1", arrModelHref.ToString());
@@ -84,6 +86,12 @@ namespace AspNetCore.HypermediaLinks.Tests.Integration
 
                 var ienumModelHref = model.FakeModels.FirstOrDefault().Links.FirstOrDefault().Href;
                 Assert.Equal("http://localhost/api/fake/fakeModel?id=5&name=test5", ienumModelHref.ToString());
+
+                var testModel = model.FakeModel;
+
+                var testModelLink = model.FakeModel.Links.FirstOrDefault().Href;
+                Assert.Equal("http://localhost/api/fake/fakeModel?id=7&name=test7", testModelLink.ToString());
+
 
             }
         }

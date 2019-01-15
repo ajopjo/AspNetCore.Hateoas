@@ -33,7 +33,8 @@ namespace AspNetCore.HypermediaLinks.Tests.Integration
                 Id = id,
                 FakeModelsArrays = new FakeModel[] { new FakeModel() { Name = "test1", Id = 1 }, new FakeModel() { Name = "test2", Id = 2 } },
                 FakeModelList = new List<FakeModel>() { new FakeModel() { Name = "test3", Id = 3 }, new FakeModel() { Name = "test4", Id = 4 } },
-                FakeModels = new List<FakeModel>() { new FakeModel() { Name = "test5", Id = 5 }, new FakeModel() { Name = "test6", Id = 6 } }
+                FakeModels = new List<FakeModel>() { new FakeModel() { Name = "test5", Id = 5 }, new FakeModel() { Name = "test6", Id = 6 } },
+                FakeModel = new FakeModel() { Name = "test7", Id = 7 }
 
             };
 

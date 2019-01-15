@@ -1,7 +1,6 @@
 ﻿using AspNetCore.HypermediaLinks.Configuration;
 using AspNetCore.HypermediaLinks.Template;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;

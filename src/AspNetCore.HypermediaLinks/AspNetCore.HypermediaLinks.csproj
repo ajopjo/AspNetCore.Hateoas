@@ -1,7 +1,15 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>ajopjo</Authors>
+    <Description>This package enables to generate hyper media links.
+https://github.com/ajopjo/AspNetCore.HypermediaLinks/blob/master/README.md</Description>
+    <PackageReleaseNotes>https://github.com/ajopjo/AspNetCore.HypermediaLinks/blob/master/README.md</PackageReleaseNotes>
+    <RepositoryUrl>https://github.com/ajopjo/AspNetCore.HypermediaLinks</RepositoryUrl>
+    <RepositoryType>Git</RepositoryType>
+    <Copyright>MIT</Copyright>
   </PropertyGroup>
 
   <ItemGroup>

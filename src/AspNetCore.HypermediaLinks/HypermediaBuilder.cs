@@ -52,10 +52,24 @@ namespace AspNetCore.HypermediaLinks
 
             return Fromtemplate(template, values, new Uri(uri));
         }
+        /// <summary>
+        /// Generate links from string template
+        /// </summary>
+        /// <param name="template">string template</param>
+        /// <param name="values">if template contains values pass values in an optional anonymous object</param>
+        /// <param name="uri">scheme+hostname, if value is null the incoming request's host name and scheme is taken</param>
+        /// <returns></returns>
         public ITemplateLinkBuilder Fromtemplate(string template, object values = null, Uri uri = null)
         {
             return new TemplateLinkBuilder(uri ?? _uri, new StringBuilder(template), values);
         }
+
+        /// <summary>
+        /// generate link from configuration file
+        /// </summary>
+        /// <param name="name">name of the config settings</param>
+        /// <param name="values">optional input values passed as anonymous object</param>
+        /// <returns></returns>
         public IConfigurationLinkBuilder FormConfiguration(string name, object values = null)
         {
             if (string.IsNullOrEmpty(name))
@@ -77,6 +91,13 @@ namespace AspNetCore.HypermediaLinks
             return new ConfigurationLinkBuilder(linkConfig, values);
         }
 
+        /// <summary>
+        /// generate link from the controller
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="action">name of action method</param>
+        /// <param name="values">optional input values - anonymous object</param>
+        /// <returns></returns>
         public ITemplateLinkBuilder FromController<T>(Expression<Func<T, string>> action, object values = null) where T : ControllerBase
         {
             if (!(action.Body is ConstantExpression constExp))

@@ -13,6 +13,13 @@ namespace AspNetCore.HypermediaLinks
 {
     public static class ServiceExtensions
     {
+        /// <summary>
+        /// Add hyper link support
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="config">optional configuration</param>
+        /// <param name="alwaysIncludeLinks">link will be generated for media type json and json+hal</param>
+        /// <returns></returns>
         public static IServiceCollection AddLinkBuilder(this IServiceCollection services, IConfiguration config = null, bool alwaysIncludeLinks = false)
         {
             services.Configure<List<LinkConfiguration>>(config.GetSection("hyperMediaLinks"));

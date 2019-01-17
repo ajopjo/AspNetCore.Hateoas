@@ -116,6 +116,15 @@ This option will avoid hardcoding of link templates defined inside the code. To 
               Add(builder.FromController<ControllerName>(c => nameof(c.ActionName), values: new { id = Id, name = Name }).Type("GET").Build().AddSelfRel());
         }
 ```
+
+### Add Service Dependency to the Start Up
+
+```csharp
+services.AddLinkBuilder(Configuration, true);
+```
+- if the links are defined inside the appsettings file, pass the optional configuration field.
+- if the links need to be generated for the media type *application/json*, pass the flag true.
+
 ## Additional Comments
 
 - If you put the service behind a proxy server or API management tool, use X-FORWARDED-HOST and *-PROTO headers from the proxy

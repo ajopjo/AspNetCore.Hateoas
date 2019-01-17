@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
@@ -10,6 +10,9 @@ https://github.com/ajopjo/AspNetCore.HypermediaLinks/blob/master/README.md</Desc
     <RepositoryUrl>https://github.com/ajopjo/AspNetCore.HypermediaLinks</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <Copyright>MIT</Copyright>
+    <PackageLicenseUrl>MIT</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/ajopjo/AspNetCore.HypermediaLinks/blob/master/README.md</PackageProjectUrl>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
   </PropertyGroup>
 
   <ItemGroup>
